@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styles from './ProjectPage.module.css';
+import ReportButtons from './ReportButtons';
 import DataAnalysis from '../DataAnalysis/DataAnalysis';
 import jsPDF from 'jspdf';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
@@ -485,13 +486,12 @@ const ProjectPage = () => {
         <h2>Description</h2>
         <p>{project.description}</p>
       </section>
-      <div className={styles.reportButtons}>
-        <button onClick={generatePDFReport} className={styles.reportButton}>Download PDF</button>
-        <button onClick={generateDOCXReport} className={styles.reportButton}>Download DOCX</button>
-        <button className={styles.toggleAnalysisButton} onClick={toggleAnalysisVisibility}>
-          {showAnalysis ? 'Hide Data Analysis' : 'Show Data Analysis'}
-        </button>
-      </div>
+      <ReportButtons
+        generatePDFReport={generatePDFReport}
+        generateDOCXReport={generateDOCXReport}
+        toggleAnalysisVisibility={toggleAnalysisVisibility}
+        showAnalysis={showAnalysis}
+      />
       {showAnalysis && <DataAnalysis tasks={tasks} />}
       <section className={styles.tasksSection}>
         <div className={styles.searchContainer}>

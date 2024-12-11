@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './BoardPage.module.css';
+import EditButton from './EditButton'; 
 import UserProfile from '../UserProfile/UserProfile';
-import { fetchUserProfile } from '../../api/index';
+import { fetchUserProfile } from '../../api/index'; 
 
 const BoardPage = () => {
   const [projects, setProjects] = useState([
@@ -22,18 +23,18 @@ const BoardPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState('');
-  const userId = localStorage.getItem("userId");
+  const userId = localStorage.getItem("userId"); 
 
 
   const location = useLocation();
 
-
+  
   useEffect(() => {
     const loadUserProfile = async () => {
       try {
-        const profile = await fetchUserProfile(userId);
-        console.log('Username in BoardPage:', profile.username);
-        setUsername(profile.username);
+        const profile = await fetchUserProfile(userId); 
+        console.log('Username in BoardPage:', profile.username); 
+        setUsername(profile.username); 
       } catch (error) {
         console.error("Failed to load user profile:", error);
       }
@@ -48,7 +49,7 @@ const BoardPage = () => {
   }, [projects]);
 
 
-
+  
   useEffect(() => {
     const recentProjectsFromStorage = JSON.parse(localStorage.getItem('recentProjects')) || [];
     setRecentProjects(recentProjectsFromStorage);
@@ -163,12 +164,12 @@ const BoardPage = () => {
     const project = projects.find((project) => project.id === isEditing);
     if (project) {
       setEditProjectData({ name: project.name, description: project.description });
-      setErrorMessage('');
+      setErrorMessage(''); 
     } else {
       console.error('Project not found for editing.');
     }
   };
-
+  
   const openDescriptionModal = (project) => {
     setSelectedProject(project);
     addToRecentProjects(project.id);
@@ -178,28 +179,28 @@ const BoardPage = () => {
     setSelectedProject(null);
   };
 
-  const Dropdown = ({ title, items, isVisible, onToggle }) => (
-    <div className={styles.dropdown}>
-      <button className={styles.dropdownButton} onClick={onToggle}>
-        {title} ▼
-      </button>
-      {isVisible && (
-        <ul className={`${styles.dropdownMenu} ${isVisible ? styles.dropdownMenuVisible : ''}`}>
-          {items.length > 0 ? (
-            items.map((item) => (
-              <li key={item.id} className={styles.dropdownItem}>
-                <Link to={`/project/${item.id}`} className={styles.dropdownLink}>
-                  {item.name}
-                </Link>
-              </li>
-            ))
-          ) : (
-            <li className={styles.dropdownItem}>No {title.toLowerCase()} projects</li>
-          )}
-        </ul>
-      )}
-    </div>
-  );
+const Dropdown = ({ title, items, isVisible, onToggle }) => (
+  <div className={styles.dropdown}>
+    <button className={styles.dropdownButton} onClick={onToggle}>
+      {title} ▼
+    </button>
+    {isVisible && (
+      <ul className={`${styles.dropdownMenu} ${isVisible ? styles.dropdownMenuVisible : ''}`}>
+        {items.length > 0 ? (
+          items.map((item) => (
+            <li key={item.id} className={styles.dropdownItem}>
+              <Link to={`/project/${item.id}`} className={styles.dropdownLink}>
+                {item.name}
+              </Link>
+            </li>
+          ))
+        ) : (
+          <li className={styles.dropdownItem}>No {title.toLowerCase()} projects</li>
+        )}
+      </ul>
+    )}
+  </div>
+);
 
   return (
     <div className={styles.boardWrapper}>
@@ -281,7 +282,7 @@ const BoardPage = () => {
             <button onClick={addProject}>Add</button>
             <button onClick={() => setIsAddProjectVisible(false)}>Close</button>
           </div>
-
+          
         </div>
       )}
 
@@ -308,17 +309,17 @@ const BoardPage = () => {
         </div>
       )}
 
-      {selectedProject && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <h2>{selectedProject.name}</h2>
-            <div className={styles.detailsText}>
-              <pre>{selectedProject.description}</pre>
-            </div>
-            <button onClick={closeDescriptionModal}>Close</button>
-          </div>
-        </div>
-      )}
+{selectedProject && (
+  <div className={styles.modal}>
+    <div className={styles.modalContent}>
+      <h2>{selectedProject.name}</h2>
+      <div className={styles.detailsText}>
+        <pre>{selectedProject.description}</pre>
+      </div>
+      <button onClick={closeDescriptionModal}>Close</button>
+    </div>
+  </div>
+)}
 
 
       <h1 className={styles.title}>Projects</h1>
@@ -335,24 +336,19 @@ const BoardPage = () => {
               </span>
             </h2>
             <p>
-              {project.description.length > 100 ? (
-                <>
-                  {project.description.slice(0, 100)}...
-                  <button className={styles.detailsButton} onClick={() => openDescriptionModal(project)}>
-                    More details
-                  </button>
-                </>
-              ) : (
-                project.description
-              )}
-            </p>
+        {project.description.length > 100 ? (
+          <>
+            {project.description.slice(0, 100)}...
+            <button className={styles.detailsButton} onClick={() => openDescriptionModal(project)}>
+              More details
+            </button>
+          </>
+        ) : (
+          project.description
+        )}
+      </p>
             <div className={styles.cardActions}>
-              <button
-                className={`${styles.actionButton} ${styles.editButton}`}
-                onClick={() => startEditing(project.id)}
-              >
-                Edit
-              </button>
+            <EditButton onEdit={() => startEditing(project.id)} />
               <button
                 className={`${styles.actionButton} ${styles.deleteButton}`}
                 onClick={() => deleteProject(project.id)}
