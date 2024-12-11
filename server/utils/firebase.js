@@ -3,12 +3,12 @@ const { getAuth } = require("firebase/auth");
 const { getFirestore } = require("firebase/firestore");
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyDPJ0qxQ-6WLR8wdH2fnV8folKGONiYluw",
-  authDomain: "organiser-b8c29.firebaseapp.com",
-  projectId: "organiser-b8c29",
-  storageBucket: "organiser-b8c29.appspot.com",
-  messagingSenderId: "265740200603",
-  appId: "1:265740200603:web:7ca8311e09fb7fa617743e",
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
 };
 
 const app = initializeApp(firebaseConfig);
