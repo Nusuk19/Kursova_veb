@@ -40,8 +40,9 @@ const ProjectPage = () => {
 
   useEffect(() => {
     const mockProjects = [
-      { id: 1, name: 'Study Space', description: 'Your personal space for studying tasks.' },
-      { id: 2, name: 'Study Space2', description: 'Your personal space for studying tasks.' },
+      { id: 1, name: 'Test Project 1', description: 'Description for test project 1' },
+      { id: 2, name: 'Test Project 2', description: 'Description for test project 2' },
+      { id: 3, name: 'Test Project 3', description: 'Description for test project 3' },
     ];
     const selectedProject = mockProjects.find((p) => p.id === parseInt(projectId, 10));
     setProject(selectedProject);
