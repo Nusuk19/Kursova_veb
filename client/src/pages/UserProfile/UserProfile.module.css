@@ -1,0 +1,93 @@
+.profileWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background-color: #ff8787;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.profileButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.iconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #d64545;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.iconLetter {
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.defaultIcon {
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: #1e1e2e;
+  border: 1px solid #404066;
+  border-radius: 10px;
+  list-style: none;
+  padding: 10px 0;
+  width: 150px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.dropdownMenu li {
+  padding: 10px 15px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdownMenu li:hover {
+  background-color: #565684;
+}
+
+.fullName {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #fff;
+  font-weight: bold;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

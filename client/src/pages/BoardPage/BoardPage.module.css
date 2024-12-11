@@ -1,0 +1,563 @@
+/* Верхній блок */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 25px;
+  background-color: #1e1e2e;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.appTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff8787;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.headerOptions {
+  display: flex;
+  gap: 25px;
+}
+
+.dropdownWrapper {
+  position: relative;
+}
+
+.dropdownButton {
+  background-color: #404066;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center; /* Центрування тексту */
+  display: flex; /* Для вирівнювання тексту та іконок */
+  align-items: center;
+  gap: 10px;
+  min-width: 150px; /* Фіксована мінімальна ширина */
+  justify-content: center; /* Центрування контенту */
+}
+
+.dropdownButton:hover {
+  background-color: #565684;
+}
+
+/* Вирівнювання розмірів списків Recent та Important */
+.dropdownMenu {
+  position: absolute;
+  top: 50px; /* Відступ від кнопки */
+  left: 0;
+  background-color: #1e1e2e;
+  border: 1px solid #404066;
+  border-radius: 10px;
+  list-style: none;
+  padding: 10px 0;
+  width: 250px; /* Встановлення однакової ширини для обох списків */
+  max-height: 300px; /* Обмеження висоти */
+  overflow-y: auto; /* Скрол лише для списку */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+
+  /* Анімація появи */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+.dropdownMenu::-webkit-scrollbar {
+  width: 8px; /* Ширина скролу */
+}
+
+.dropdownMenu::-webkit-scrollbar-thumb {
+  background-color: #565684; /* Колір скролу */
+  border-radius: 4px; /* Закруглені краї */
+}
+
+.dropdownMenuVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Анімація для кнопок */
+.dropdownButton,
+.createButton,
+.actionButton {
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dropdownButton:hover,
+.createButton:hover,
+.actionButton:hover {
+  transform: translateY(-3px); /* Плавний рух вгору */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Додатковий ефект тіні */
+}
+
+/* Загальні стилі для dropdown */
+.dropdown {
+  position: relative; /* Для відносного позиціонування меню */
+  display: inline-block; /* Для вирівнювання кнопок */
+}
+
+.dropdownItem {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 12px 18px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.dropdownItem:hover {
+  background-color: #404066;
+}
+
+.dropdownLink {
+  text-decoration: none;
+  color: #a3d1ff;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.dropdownLink:hover {
+  color: #c3e4ff;
+  text-decoration: underline;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+  .dropdownMenu {
+    min-width: 180px; /* Менший мінімум для мобільних */
+  }
+
+  .dropdownButton {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+    width: 100%; /* На весь доступний простір */
+  }
+
+  .dropdownItem {
+    font-size: 0.8rem; /* Зменшений розмір шрифту */
+  }
+}
+
+.createButton {
+  background-color: #0084ff;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.createButton:hover {
+  background-color: #0066cc;
+  transform: translateY(-3px);
+}
+
+
+/* Кнопки дій на картці проекту */
+.cardActions {
+  display: flex; /* Розташування в ряд */
+  flex-wrap: wrap; /* Дозволяє перенесення */
+  justify-content: space-between; /* Рівномірний розподіл кнопок */
+  align-items: center; /* Вирівнювання по вертикалі */
+  gap: 15px; /* Проміжки між кнопками */
+  margin-top: 20px;
+}
+
+/* Загальні стилі для кнопок */
+.actionButton {
+  flex: unset; /* Скасовує автоматичне розтягнення */
+  width: 100%; /* Встановлює фіксовану ширину для адаптивності */
+  max-width: 180px; /* Максимальна ширина для кнопок */
+  background-color: #404066;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center; /* Вирівнювання тексту по центру */
+  flex: 1; /* Рівномірне розтягнення кнопок */
+  padding: 10px 15px; /* Менший внутрішній відступ */
+  font-size: 1rem; /* Зменшений розмір шрифту */
+}
+
+/* Анімація при наведенні */
+.actionButton:hover {
+  background-color: #565684;
+  transform: translateY(-3px);
+}
+
+/* Додаткові стилі для різних типів кнопок */
+.editButton {
+  background-color: #0084ff;
+}
+
+.editButton:hover {
+  background-color: #0066cc;
+}
+
+.deleteButton {
+  background-color: #ff4d4d;
+}
+
+.deleteButton:hover {
+  background-color: #cc0000;
+}
+
+.viewButton {
+  background-color: #4caf50;
+}
+
+.viewButton:hover {
+  background-color: #388e3c;
+}
+
+
+
+/* Основний контент */
+.title {
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  color: #ff8787;
+  text-align: center;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.projectsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 проекти в ряд */
+  gap: 25px;
+  padding: 0 20px;
+}
+
+.projectCard {
+  background-color: #1e1e2e;
+  min-height: 200px; /* Забезпечує достатньо місця */
+  max-width: 100%; /* Забезпечує адаптивність */
+  word-wrap: break-word; /* Переносить текст */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.projectCard h2 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  color: #ff8787;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.projectCard p {
+  font-size: 1rem;
+  color: #d9d9e3;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.projectLink {
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration: none;
+  color: #a3d1ff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.projectLink:hover {
+  color: #c3e4ff;
+  transform: translateX(5px);
+}
+
+/* Зірочка */
+.star {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #555;
+  margin-left: 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.star:hover {
+  color: #ffd700;
+  transform: scale(1.2);
+}
+
+.activeStar {
+  color: #ffd700;
+}
+body {
+  background-color: #38384e; /* Колір фону */
+  color: #fff; /* Основний колір тексту */
+  font-family: Arial, sans-serif; /* Загальний шрифт */
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .projectsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Зменшує ширину карток */
+  }
+  .actionButton {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Розташування елементів в колонку */
+    align-items: flex-start; /* Вирівнювання по лівому краю */
+    padding: 15px 20px; /* Додаємо відступи */
+  }
+
+  .headerOptions {
+    display: flex;
+    flex-direction: column; /* Кнопки в колонку */
+    align-items: flex-start; /* Вирівнювання кнопок по лівому краю */
+    gap: 15px; /* Відстань між кнопками */
+    width: 100%; /* Ширина на весь екран */
+    margin-bottom: 20px; /* Відступ від інших елементів */
+  }
+
+  .dropdownButton {
+    width: 100%; /* Кнопки на весь доступний простір */
+    padding: 10px 15px; /* Зменшені відступи */
+    font-size: 0.9rem; /* Зменшений розмір шрифту */
+    text-align: left; /* Вирівнювання тексту по лівому краю */
+  }
+
+  .createButton {
+    width: 100%; /* Кнопка на весь екран */
+    padding: 12px 0; /* Відступи зверху і знизу */
+    font-size: 0.9rem; /* Зменшення шрифта */
+  }
+}
+
+/* Додатково: Кнопки на екранах більше за 768px */
+@media (min-width: 769px) {
+  .headerOptions {
+    flex-direction: row; /* Кнопки в ряд на великих екранах */
+    align-items: center; /* Вирівнювання по вертикалі */
+    gap: 25px; /* Відстань між кнопками */
+  }
+
+  .dropdownButton,
+  .createButton {
+    width: auto; /* Кнопки мають свою ширину на великих екранах */
+    padding: 12px 20px; /* Збільшення відступів */
+    font-size: 1rem; /* Нормальний шрифт */
+  }
+}
+
+/* Стилі для модального вікна */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Темніше тло */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out; /* Анімація появи */
+}
+
+/* Анімація для модального вікна */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modalContent {
+  background-color: #292b2f; /* Залишаємо той самий стиль */
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  width: 450px;
+  max-width: 100%;
+  transition: transform 0.3s ease-out;
+  animation: scaleUp 0.3s ease-out;
+}
+
+/* Стилі для прокрутки */
+.modalContent textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalContent textarea::-webkit-scrollbar-thumb {
+  background-color: #4a4e61; /* Колір смуги прокрутки */
+  border-radius: 8px;
+}
+
+.modalContent textarea::-webkit-scrollbar-thumb:hover {
+  background-color: #00bfff; /* Активний колір смуги */
+}
+
+.modalContent .detailsText {
+  max-height: 50vh; /* Обмеження висоти тексту */
+  overflow-y: auto; /* Додаємо прокрутку для тексту, якщо він перевищує висоту */
+  padding: 10px 0; /* Відступи для кращого вигляду */
+  color: #d9d9e3;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.modalContent .detailsText::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modalContent .detailsText::-webkit-scrollbar-thumb {
+  background-color: #4a4e61; /* Колір смуги прокрутки */
+  border-radius: 8px;
+}
+
+.modalContent .detailsText::-webkit-scrollbar-thumb:hover {
+  background-color: #00bfff; /* Активний колір смуги */
+}
+
+/* Анімація для збільшення модального вікна */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.modalContent input,
+.modalContent textarea {
+  width: 95%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #4a4e61; /* Легший відтінок для лінії */
+  background-color: #3a3f47;
+  color: #f5f5f5;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.modalContent input:focus,
+.modalContent textarea:focus {
+  border-color: #00bfff; /* Активний колір при фокусі */
+  outline: none;
+}
+
+/* Стилі для кнопки */
+.modalContent button {
+  background-color: #00bfff; /* Світліший синій */
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.modalContent button:hover {
+  background-color: #0086d1; /* Темніший відтінок синього */
+  transform: translateY(-2px); /* Легка анімація при наведенні */
+}
+
+.modalContent button:active {
+  background-color: #006fa3; /* Ефект при натисканні */
+  transform: translateY(0);
+}
+
+/* Кнопка закриття */
+.modalContent .closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modalContent .closeButton:hover {
+  color: #ff6347; /* Колір при наведенні */
+}
+
+.projectDescription {
+  color: #d9d9e3;
+  cursor: pointer;
+}
+
+/* Модальне вікно для опису */
+.modalContent p {
+  font-size: 1rem;
+  color: #d9d9e3;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Кнопка "Детальніше" */
+.detailsButton {
+  display: block;
+  margin: 20px auto; /* Вирівнює по центру */
+  background-color: #404066;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center; /* Вирівнювання тексту по центру */
+}
+
+.detailsText pre {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: pre-wrap; /* Дозволяє переносити текст */
+  word-wrap: break-word; /* Переносить довгі слова */
+}
+
+.detailsButton:hover {
+  background-color: #565684;
+  transform: translateY(-3px);
+}
+
+/* Адаптивність для мобільних пристроїв */
+@media (max-width: 768px) {
+  .projectsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Менша ширина карток на мобільних */
+  }
+}
+

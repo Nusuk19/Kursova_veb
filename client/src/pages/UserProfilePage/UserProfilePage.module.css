@@ -1,0 +1,55 @@
+.profilePage {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #fff;
+  background-color: #292b2f;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profilePage h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profileForm label {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.profileForm input,
+.profileForm textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #404066;
+  border-radius: 5px;
+  background-color: #1e1e2e;
+  color: #fff;
+}
+
+.profileForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.profileForm button {
+  padding: 10px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.profileForm button:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,855 @@
+.projectPage {
+  background-color: #2a1625;
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.projectTitle {
+  font-size: 2.5rem;
+  color: #f8f9fa;
+  margin: 0;
+}
+
+.backButton {
+  text-decoration: none;
+  color: #fff;
+  background-color: #6c757d;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.backButton:hover {
+  background-color: #5a6268;
+}
+
+.projectDetails {
+  background-color: #3b1f31;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.kanbanColumnTitle {
+  text-align: center;
+  color: #f8f9fa;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.kanbanBoard {
+  display: flex;
+  gap: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.kanbanColumn {
+  flex: 1;
+  background-color: #3b1f31;
+  padding: 15px;
+  border-radius: 10px;
+  max-height: 500px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: #6c757d #2a1625;
+}
+
+.kanbanColumn::-webkit-scrollbar {
+  width: 8px;
+}
+
+.kanbanColumn::-webkit-scrollbar-thumb {
+  background-color: #6c757d;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .kanbanColumn {
+    min-width: 250px;
+  }
+
+  .kanbanBoard {
+    flex-direction: column;
+  }
+}
+
+.taskCard {
+  background-color: #462033;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: grab;
+  z-index: 1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.taskCard .deadlineClock {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  animation: pulse 1.5s infinite;
+}
+
+@media (max-width: 768px) {
+  .taskCard .deadlineClock {
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.taskCard .deadlineClock:hover {
+  background-color: #ff6347;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.taskCard .deadlineClock::after {
+  content: attr(data-deadline);
+  position: absolute;
+  top: 30px;
+  right: -10px;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  z-index: 3;
+  display: none;
+}
+
+.taskCard .deadlineClock:hover::after {
+  display: block;
+}
+
+.taskCard.deadlinePassed .deadlineClock {
+  background-color: red;
+}
+
+.taskCard:hover {
+  transform: scale(1.03);
+  border: 2px solid #da0a64;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.taskCard:active {
+  cursor: grabbing;
+}
+
+.taskCard h4 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.taskCard p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #ccc;
+  max-height: 80px;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.addTaskButton {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addTaskButton:hover {
+  background-color: #218838;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #3b1f31;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modalContent {
+  background-color: #292b2f;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  width: 450px;
+  max-width: 90%;
+  animation: scaleUp 0.3s ease-out;
+  position: relative;
+}
+
+.modal input,
+.modal textarea {
+  width: 95%;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #2a1625;
+  color: #fff;
+  border: 1px solid #6c757d;
+  border-radius: 5px;
+}
+
+.modal input[type="date"]::before {
+  content: "Deadline";
+  display: block;
+  margin-bottom: 5px;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modalButton {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modalButton:hover {
+  background-color: #218838;
+}
+
+.modalButtonCancel {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modalButtonCancel:hover {
+  background-color: #c82333;
+}
+
+.showMoreButton {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.showMoreButton:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.taskActions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  z-index: 1;
+}
+
+.editButton,
+.deleteButton {
+  width: 100px;
+  text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.editButton:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.deleteButton {
+  background-color: #dc3545;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+.showMoreSymbol {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #f8f9fa;
+  margin-left: 5px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.showMoreSymbol:hover {
+  transform: scale(1.3);
+  color: #162f89;
+}
+
+.descriptionModal {
+  background: #3b1f31;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 300px;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.descriptionContent {
+  color: #f8f9fa;
+  font-size: 1rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.descriptionModal::-webkit-scrollbar {
+  width: 8px;
+}
+
+.descriptionModal::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+@media (max-width: 576px) {
+  .modal {
+    max-width: 90%;
+    padding: 15px;
+  }
+}
+
+.descriptionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.descriptionHeader h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #f8f9fa;
+}
+
+.modalButtonCancel {
+  background-color: #c82333;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.modalButtonCancel:hover {
+  background-color: #dc3545;
+  transform: scale(1.1);
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.closeButton:hover {
+  color: #ff6347;
+}
+
+.modal1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent1 {
+  background-color: #3b1f31;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  width: 450px;
+  max-width: 90%;
+  animation: scaleUp 0.3s ease-out;
+  position: relative;
+}
+
+.detailsText1 {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 10px 0;
+  color: #d9d9e3;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.detailsText1 pre {
+  white-space: pre-wrap;
+}
+
+.detailsText1::-webkit-scrollbar {
+  width: 6px;
+}
+
+.detailsText1::-webkit-scrollbar-thumb {
+  background-color: #963952;
+  border-radius: 8px;
+}
+
+.detailsText1::-webkit-scrollbar-thumb:hover {
+  background-color: #00bfff;
+}
+
+.projectUsers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.userAvatar {
+  width: 30px;
+  height: 30px;
+  background-color: #a72571;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.userAvatar:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.userSelect {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #2a1625;
+  color: #fff;
+}
+
+.assignedUsers {
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+}
+
+.assignedUsers .userAvatar {
+  box-shadow: 0 0 10px rgba(200, 45, 117, 0.5);
+}
+
+.inviteButton {
+  background-color: #a72571;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.inviteButton:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.inviteButton:active {
+  background-color: #004085;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transform: scale(0.95);
+}
+
+.doneButton {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.doneButton:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.doneButton:active {
+  background-color: #1e7e34;
+  transform: scale(1);
+}
+
+.taskActionsTopRight {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  z-index: 3;
+}
+
+.moveButton {
+  background-color: #ff0095;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.moveButton:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+.moveButton:active {
+  background-color: #004085;
+  transform: scale(1);
+}
+
+.taskActionsTopLeft {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  z-index: 3;
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.progressBarContainer {
+  position: relative;
+}
+
+.progressBar {
+  height: 13px;
+  background-color: #0bf27e;
+  border-radius: 10px;
+  position: relative;
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff0095;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.progressBarContainer:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+.filterSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.filterSection label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #d7d7d7;
+}
+
+.filterSelect {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.filterSelect:hover {
+  background-color: #f7c9f5;
+  border-color: #ff0095;
+}
+
+.filterSelect:focus {
+  border-color: #ff0095;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(255, 0, 149, 0.5);
+}
+
+.filterSelect option {
+  padding: 10px;
+  background-color: #fff;
+  font-size: 1rem;
+  color: #333;
+  transition: background-color 0.3s;
+}
+
+.filterSelect option:hover {
+  background-color: #f7c9f5;
+}
+
+.searchContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchInput {
+  width: 70%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #dddddd;
+  border-radius: 25px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.clearButton {
+  padding: 10px 15px;
+  font-size: 14px;
+  color: white;
+  background-color: #ff6f61;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clearButton:hover {
+  background-color: #ff4d4d;
+}
+
+.noResults {
+  text-align: center;
+  color: #ff6f61;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.completedTask {
+  background-color: #f0f0f0;
+  color: #888;
+  border-left: 4px solid green;
+}
+
+.completedStatus {
+  font-size: 1.2em;
+  color: green;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.completedIcon {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ff0095;
+  box-shadow: 0 0 5px rgba(255, 0, 149, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.completedIcon:hover {
+  transform: scale(1.1);
+}
+
+.toggleAnalysisButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 10px 0;
+}
+
+.toggleAnalysisButton:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.toggleAnalysisButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(76, 175, 80, 0.6);
+}
+
+.toggleAnalysisButton:active {
+  background-color: #388e3c;
+}
+
+.reportButtons {
+  margin: 20px 0;
+}
+
+.reportButton {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-right: 10px;
+}
+
+.reportButton:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+}
+
+.reportButton:focus {
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(76, 175, 80, 0.6);
+}
+
+.reportButton:active {
+  background-color: #388e3c;
+}
